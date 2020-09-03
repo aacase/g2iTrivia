@@ -1,6 +1,7 @@
 {
   "home": {
-    "title": "Welcome to the Trivia Challenge",
+    "title": "Welcome to the",
+    "titleLineTwo": "Trivia Challenge",
     "subtitle": "You will be presented with 10 True or False questions.",
     "challenge": "Can you score 100%?",
     "beginButton": "Begin"
