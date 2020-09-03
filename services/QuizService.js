@@ -1,5 +1,24 @@
 import axios from "axios";
 
+/**
+ * This is our data call to retreive questions. On a successful call, we'll take the data and transform it
+ * into a usable format for the quiz.
+ * 
+ * Example response:
+ * {
+  "response_code": 0,
+  "results": [
+    {
+      "category": "Entertainment: Video Games",
+      "type": "boolean",
+      "difficulty": "hard",
+      "question": "Unturned originally started as a Roblox game.",
+      "correct_answer": "True",
+      "incorrect_answers": [
+        "False"
+      ]
+    },…]}
+ */
 export async function getQuizQuestions() {
   try {
     let response = await axios.get(
@@ -26,19 +45,29 @@ function transformQuestionObject(quizObject) {
         .replace(/&#039;/g, "'")
         .replace(/&epsilon;/g, "ε").replace(/&Phi;/g, "Φ");
     });
-    console.log(quizObject)
     return quizObject;
   } catch (err) {
     return err;
   }
 }
 
+/**
+ * Take the user's answer and append to our question state, and increase the index
+ * to move on to the next question in the quiz
+ * @param {String} userAnswer 
+ * @param {Number} quizIndex
+ * @param {Array} quizQuestions
+ */
 export function answerQuestion(userAnswer, quizIndex, quizQuestions) {
   quizQuestions[quizIndex].user_answer = userAnswer;
   quizIndex++;
   return { index: quizIndex, questions: quizQuestions };
 }
 
+/**
+ * Take the quiz object, and score it using user answers
+ * @param {Array} quizQuestions
+ */
 export function scoreQuiz (quizQuestions){
     let score = 0;
     quizQuestions.forEach(question =>{
@@ -47,11 +76,17 @@ export function scoreQuiz (quizQuestions){
     return `${score} / ${quizQuestions.length}`
 }
 
-
+/**
+ * Display red or green based on the user's answer
+ * @param {Object} question
+ */
 export function isCorrect (question){
     return question.correct_answer === question.user_answer ?  {color: "green"} : {color: "red"}
   }
-  
+/**
+ * Display + or - based on the user's answer
+ * @param {Object} question
+ */
 export function displayQuestion(question){
     return question.correct_answer === question.user_answer ? `+ ${question.question}` : `- ${question.question}`
   }
