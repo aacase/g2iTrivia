@@ -46,3 +46,12 @@ export function scoreQuiz (quizQuestions){
     })
     return `${score} / ${quizQuestions.length}`
 }
+
+
+export function isCorrect (question){
+    return question.correct_answer === question.user_answer ?  {color: "green"} : {color: "red"}
+  }
+  
+export function displayQuestion(question){
+    return question.correct_answer === question.user_answer ? `+ ${question.question}` : `- ${question.question}`
+  }
