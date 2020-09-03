@@ -11,5 +11,9 @@
     "category": "Category",
     "question": "Question loading...",
     "of": "of"
+  },
+  "results": {
+    "youScored": "You scored",
+    "again": "Play Again?"
   }
 }

@@ -1,16 +1,59 @@
 import * as React from 'react';
-import { View, Text } from 'react-native';
-//Navigation
-import { useNavigation } from '@react-navigation/native';
+import {StyleSheet, View, ScrollView} from 'react-native';
+import { Text, Card, Button } from "@ui-kitten/components";
 import { useTranslation } from "react-i18next";
 
+//Navigation
+import { useNavigation } from '@react-navigation/native';
+import { scoreQuiz } from "../services/QuizService";
 
-export default function ResultsScreen() {
+function isCorrect (question){
+  return question.correct_answer === question.user_answer ? styles.correct_answer: styles.incorrect_answer
+}
+
+function displayQuestion(question){
+  return question.correct_answer === question.user_answer ? `+ ${question.question}` : `- ${question.question}`
+}
+export default function ResultsScreen(props) {
     const navigation = useNavigation();
+    const { t } = useTranslation();
+    const quizResults = props.route.params.quizResults;
     return (
-      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-        <Text>Results Screen</Text>
-        <Text onPress={() => navigation.navigate("Home")}>Play Again?</Text>
+      <View style={{ flex: 1, alignItems: 'center'}}>
+        <Text category="h1">{t('results.youScored')}</Text>
+        <Text category="h1">{scoreQuiz(quizResults)}</Text>
+        <View style={styles.scrollViewHeight}>
+        <ScrollView style={styles.scrollView}>
+        {quizResults.map((question, index) =>
+        <Card style={styles.card} key={index}>
+          <Text  style={isCorrect(question)} category='p2'>{displayQuestion(question)}</Text>
+        </Card>
+        )}
+        </ScrollView>
+        </View>
+        <Button  onPress={() => navigation.navigate("Home")} style={styles.button} status='success'>
+      {t('results.again')}
+    </Button>
       </View>
     );
   }
+
+  const styles = StyleSheet.create({
+    correct_answer:{
+      color: "green"
+    },
+    incorrect_answer:{
+      color: "red"
+    },
+    card:{
+      width: "95%"
+    },
+    scrollViewHeight: {
+      height: "70%",
+      marginTop: 10
+    },
+    button:{
+      marginTop: 10
+    }
+  });
+  
