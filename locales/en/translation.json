@@ -4,5 +4,12 @@
     "subtitle": "You will be presented with 10 True or False questions.",
     "challenge": "Can you score 100%?",
     "beginButton": "Begin"
+  },
+  "quiz": {
+    "true": "True",
+    "false": "False",
+    "category": "Category",
+    "question": "Question loading...",
+    "of": "of"
   }
 }
