@@ -24,8 +24,9 @@ function transformQuestionObject(quizObject) {
       question.question = question.question
         .replace(/&quot;/g, '"')
         .replace(/&#039;/g, "'")
-        .replace(/&epsilon;/g, "ε");
+        .replace(/&epsilon;/g, "ε").replace(/&Phi;/g, "Φ");
     });
+    console.log(quizObject)
     return quizObject;
   } catch (err) {
     return err;
@@ -36,4 +37,12 @@ export function answerQuestion(userAnswer, quizIndex, quizQuestions) {
   quizQuestions[quizIndex].user_answer = userAnswer;
   quizIndex++;
   return { index: quizIndex, questions: quizQuestions };
+}
+
+export function scoreQuiz (quizQuestions){
+    let score = 0;
+    quizQuestions.forEach(question =>{
+        question.correct_answer === question.user_answer ? score ++ : null
+    })
+    return `${score} / ${quizQuestions.length}`
 }
