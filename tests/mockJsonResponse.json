@@ -1,0 +1,92 @@
+[
+  {
+    "category": "Entertainment: Video Games",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "In \"Portal 2\", Cave Johnson started out Aperture Science as a shower curtain company.",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "True"
+  },
+  {
+    "category": "History",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The fourth funnel of the RMS Titanic was fake designed to make the ship look more powerful and symmetrical.",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "True"
+  },
+  {
+    "category": "Entertainment: Video Games",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "In Undertale, having a \"Fun Value\" set to 56-57 will play the \"Wrong Number Song Call\".",
+    "correct_answer": "False",
+    "incorrect_answers": ["True"],
+    "user_answer": "False"
+  },
+  {
+    "category": "Science: Computers",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The IBM PC used an Intel 8008 microprocessor clocked at 4.77 MHz and 8 kilobytes of memory.",
+    "correct_answer": "False",
+    "incorrect_answers": ["True"],
+    "user_answer": "False"
+  },
+  {
+    "category": "Entertainment: Television",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The Klingon home planet is Qo'noS.",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "True"
+  },
+  {
+    "category": "History",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "During the Winter War, the amount of Soviet Union soliders that died or went missing was five times more than Finland's.",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "True"
+  },
+  {
+    "category": "Entertainment: Film",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The weapon Clint Eastwood uses in \"Dirty Harry\" was a .44 Automag.",
+    "correct_answer": "False",
+    "incorrect_answers": ["True"],
+    "user_answer": "False"
+  },
+  {
+    "category": "Entertainment: Music",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "Pete Townshend's solo album, \"White City: A Novel\", is set in the metropolitan area of Chicago.",
+    "correct_answer": "False",
+    "incorrect_answers": ["True"],
+    "user_answer": "False"
+  },
+  {
+    "category": "Vehicles",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The term \"GTO\" was originated by Ferrari?",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "True"
+  },
+  {
+    "category": "Art",
+    "type": "boolean",
+    "difficulty": "hard",
+    "question": "The Statue of Liberty's official name is “Liberty Enlightening the World”.",
+    "correct_answer": "True",
+    "incorrect_answers": ["False"],
+    "user_answer": "False"
+  }
+]
