@@ -1,4 +1,4 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
+import { call, put, takeEvery} from 'redux-saga/effects'
 import {getQuizQuestions} from '../../services/QuizService'
 
 // worker Saga: will be fired on START_QUIZ actions

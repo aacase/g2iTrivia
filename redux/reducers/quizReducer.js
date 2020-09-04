@@ -4,8 +4,7 @@ import { answerQuestion} from "../../services/QuizService";
 const initialState = {
   index: 0,
   questions: [],
-  quizOver: false,
-  finalScore: "Incomplete",
+  quizOver: false
 };
 
 /**
@@ -34,7 +33,6 @@ const quizReducer = createReducer(initialState, {
     state.index = 0;
     state.questions = [];
     state.quizOver = false;
-    state.results = [];
   },
 });
 
