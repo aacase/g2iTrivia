@@ -1,6 +1,8 @@
 import axios from "axios";
-import {decode} from "he";
-/**
+import { decode } from "he";
+
+export async function getQuizQuestions() {
+  /**
  * This is our data call to retreive questions. On a successful call, we'll take the data and transform it
  * into a usable format for the quiz.
  * 
@@ -19,7 +21,6 @@ import {decode} from "he";
       ]
     },…]}
  */
-export async function getQuizQuestions() {
   try {
     let response = await axios.get(
       "https://opentdb.com/api.php?amount=10&difficulty=hard&type=boolean"
@@ -41,7 +42,7 @@ function transformQuestionObject(quizObject) {
   try {
     quizObject.forEach((question) => {
       question.user_answer = null;
-      question.question = decode(question.question)
+      question.question = decode(question.question);
     });
     return quizObject;
   } catch (err) {
@@ -52,39 +53,43 @@ function transformQuestionObject(quizObject) {
 /**
  * Take the user's answer and append to our question state, and increase the index
  * to move on to the next question in the quiz
- * @param {String} userAnswer 
+ * @param {String} userAnswer
  * @param {Number} quizIndex
  * @param {Array} quizQuestions
  */
 export function answerQuestion(userAnswer, quizIndex, quizQuestions) {
   quizQuestions[quizIndex].user_answer = userAnswer;
   quizIndex++;
-  return { index: quizIndex, questions: quizQuestions };
+  return quizQuestions;
 }
 
 /**
  * Take the quiz object, and score it using user answers
  * @param {Array} quizQuestions
  */
-export function scoreQuiz (quizQuestions){
-    let score = 0;
-    quizQuestions.forEach(question =>{
-        question.correct_answer === question.user_answer ? score ++ : null
-    })
-    return `${score} / ${quizQuestions.length}`
+export function scoreQuiz(quizQuestions) {
+  let score = 0;
+  quizQuestions.forEach((question) => {
+    question.correct_answer === question.user_answer ? score++ : null;
+  });
+  return `${score} / ${quizQuestions.length}`;
 }
 
 /**
  * Display red or green based on the user's answer
  * @param {Object} question
  */
-export function isCorrect (question){
-    return question.correct_answer === question.user_answer ?  {color: "green"} : {color: "red"}
-  }
+export function isCorrect(question) {
+  return question.correct_answer === question.user_answer
+    ? { color: "green" }
+    : { color: "red" };
+}
 /**
  * Display + or - based on the user's answer
  * @param {Object} question
  */
-export function displayQuestion(question){
-    return question.correct_answer === question.user_answer ? `+ ${question.question}` : `- ${question.question}`
-  }
+export function displayQuestion(question) {
+  return question.correct_answer === question.user_answer
+    ? `+ ${question.question}`
+    : `- ${question.question}`;
+}

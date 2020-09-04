@@ -2,6 +2,7 @@ import * as React from "react";
 import { StyleSheet, View, ScrollView } from "react-native";
 import { Text, Card, Button } from "@ui-kitten/components";
 import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 
 //Navigation
 import { useNavigation } from "@react-navigation/native";
@@ -9,8 +10,14 @@ import { scoreQuiz, isCorrect, displayQuestion } from "../services/QuizService";
 
 export default function ResultsScreen(props) {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const { t } = useTranslation();
-  const quizResults = props.route.params.quizResults;
+  const quizResults = useSelector((state) => state.quizReducer.questions);
+  const handleStartOver = () =>{
+    dispatch({ type:"START_OVER"});
+    navigation.navigate("Home");
+  }
+  
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <Text category="h1">{t("results.youScored")}</Text>
@@ -27,7 +34,7 @@ export default function ResultsScreen(props) {
         </ScrollView>
       </View>
       <Button
-        onPress={() => navigation.navigate("Home")}
+        onPress={handleStartOver}
         style={styles.button}
         status="success"
       >

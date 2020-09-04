@@ -3,28 +3,32 @@ import { StyleSheet, View } from "react-native";
 import { Button, Card, Text } from "@ui-kitten/components";
 import { useNavigation } from "@react-navigation/native";
 import { useTranslation } from "react-i18next";
-import { getQuizQuestions, answerQuestion } from "../services/QuizService";
+import { useDispatch, useSelector } from "react-redux";
+
+const isLastQuestion = (arrayLength, index) => arrayLength != 0 && index + 1 == arrayLength;
 
 export default function QuizScreen() {
   const navigation = useNavigation();
   const { t } = useTranslation();
-  const [quizQuestions, setQuizQuestions] = React.useState([]);
-  const [quizIndex, setQuizIndex] = React.useState(0);
+  const quizQuestions = useSelector((state) => state.quizReducer.questions);
+  const quizIndex = useSelector((state) => state.quizReducer.index);
+  const quizOver = useSelector((state) => state.quizReducer.quizOver);
+  const dispatch = useDispatch();
   React.useEffect(() => {
-    const getQuestions = async () => {
-      setQuizQuestions(await getQuizQuestions());
-    };
-    getQuestions();
-  }, []);
+    // When the quiz is over according to the redux state, navigate to the results screen
+    quizOver ? navigation.navigate("Results") : null;
+  }, [quizOver]);
 
-  const handleAnswerQuestion = function (answer) {
-    let quizLogic = answerQuestion(answer, quizIndex, quizQuestions);
-    setQuizQuestions(quizLogic.questions);
-    quizLogic.index + 1 <= quizQuestions.length
-      ? setQuizIndex(quizLogic.index)
-      : navigation.navigate("Results", {
-          quizResults: quizLogic.questions,
-        });
+  const handleAnswer = (answer) => {
+    if (!isLastQuestion(quizQuestions.length, quizIndex)) {
+      dispatch({ type: "ANSWER_QUESTION", payload: answer });
+      dispatch({ type: "INCREASE_INDEX" });
+    } else if (
+      isLastQuestion(quizQuestions.length, quizIndex)
+    ) {
+      dispatch({ type: "ANSWER_QUESTION", payload: answer });
+      dispatch({ type: "END_QUIZ" });
+    }
   };
   return (
     <>
@@ -45,7 +49,7 @@ export default function QuizScreen() {
             </Text>
             <View style={[styles.footerContainer]}>
               <Button
-                onPress={() => handleAnswerQuestion("True")}
+                onPress={() => handleAnswer("True")}
                 style={styles.footerControl}
                 size="small"
               >
@@ -53,7 +57,7 @@ export default function QuizScreen() {
               </Button>
               <Button
                 style={styles.footerControl}
-                onPress={() => handleAnswerQuestion("False")}
+                onPress={() => handleAnswer("False")}
                 size="small"
                 status="danger"
               >
